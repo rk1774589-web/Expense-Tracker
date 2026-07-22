@@ -27,7 +27,7 @@ export function renderTransactions(transactions) {
   // Use .map().join('') for clean, high-performance rendering
   listContainer.innerHTML = transactions
     .map((transaction) => {
-      const { title, amount, category, date } = transaction;
+      const { id, title, amount, category, date } = transaction;
       const catInfo = CATEGORIES[category] || {
         label: category,
         color: "#9CA3AF",
@@ -36,26 +36,25 @@ export function renderTransactions(transactions) {
       const isIncome = amount > 0;
 
       return `
-      <li class="transaction-item" data-id="${id}">
-      <div class="tx-details">
-      <div class="tx-icon" style="background-color: ${catInfo.color}20">
-        ${catInfo.icon}
-      </div>
-      <div>
-        <div class="tx-title">${title}</div>
-        <div class="tx-meta">${date} • ${catInfo.label}</div>
-      </div>
-    </div>
-    <div style="display: flex; align-items: center; gap: 12px;">
-      <div class="tx-amount ${isIncome ? "text-income" : "text-expense"}">
-        ${isIncome ? "+" : ""}${formatCurrency(amount)}
-      </div>
-      <button class="delete-btn" data-id="${id}" style="background: none; border: none; cursor: pointer; font-size: 1rem; opacity: 0.6;" title="Delete">
+        <li class="transaction-item">
+          <div class="tx-details">
+            <div class="tx-icon" style="background-color: ${catInfo.color}20">
+              ${catInfo.icon}
+            </div>
+            <div>
+              <div class="tx-title">${title}</div>
+              <div class="tx-meta">${date} • ${catInfo.label}</div>
+            </div>
+          </div>
+          <div class="transaction-amount" style="color: ${amount > 0 ? "#10B981" : "#EF4444"}">
+            ${formatCurrency(amount)}
+          <div class="tx-amount ${isIncome ? "text-income" : "text-expense"}">
+            ${isIncome ? "+" : ""}${formatCurrency(amount)}
+            <button class="delete-btn" data-id="${id}" style="background: none; border: none; cursor: pointer; font-size: 1rem; opacity: 0.6;" title="Delete">
         🗑️
       </button>
-    </div>
-  </li>
-`;
+          </div>
+        </li>`;
     })
     .join("");
 }

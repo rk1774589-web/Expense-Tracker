@@ -16,7 +16,11 @@ import {
   getFormData,
   renderCategoryProgress,
 } from "./ui.js";
-import { saveTransactions, loadTransactions } from "./storage.js";
+import {
+  saveTransactions,
+  loadTransactions,
+  deleteTransactionFromStorage,
+} from "./storage.js";
 import { initChart, updateChart } from "./chart.js";
 
 // Global variable to keep track of our Chart instance
@@ -43,11 +47,19 @@ function setupEventListeners() {
   const form = document.querySelector("#transaction-form");
   const searchInput = document.querySelector("#search-input");
   const timeframeBtns = document.querySelectorAll(".filter-btn");
+  const transactionList = document.querySelector("#transaction-list");
 
   // Modal Open/Close
   openModalBtn.addEventListener("click", () => modal.showModal());
-  closeModalBtn.addEventListener("click", () => modal.close());
-  cancelModalBtn.addEventListener("click", () => modal.close());
+  closeModalBtn.addEventListener("click", () => {
+    form.reset();
+    modal.close();
+  });
+  cancelModalBtn.addEventListener("click", () => {
+    form.reset();
+    modal.close();
+  });
+
   // Form Submission
   form.addEventListener("submit", (e) => {
     e.preventDefault();
@@ -74,6 +86,18 @@ function setupEventListeners() {
       setTimeframe(btn.dataset.timeframe);
       updateAppUI();
     });
+  });
+
+  transactionList.addEventListener("click", (e) => {
+    const deleteBtn = e.target.closest(".delete-btn");
+    if (!deleteBtn) return; // Ignore clicks outside the trash button
+
+    const id = deleteBtn.dataset.id;
+
+    // Delete from state and refresh everything!
+    deleteTransaction(id);
+    deleteTransactionFromStorage(id);
+    updateAppUI();
   });
 }
 
