@@ -22,33 +22,61 @@ export function renderTransactions(transactions) {
   if (transactions.length === 0) {
     listContainer.innerHTML = `<li class="empty-state">No transactions found.</li>`;
     return;
-  } else {
-    listContainer.innerHTML = ""; // Clear existing content
-    transactions.map((transaction) => {
-      const { description, amount, category, date } = transaction;
-      listContainer.innerHTML += `<li class="transaction-item">
-          <div class="transaction-info">
-            <span class="transaction-title">${description}</span>
-            <span class="transaction-date">${date}</span>
-            <span class="transaction-category" style="color: ${CATEGORIES[category].color}">
-              ${CATEGORIES[category].icon} ${CATEGORIES[category].label}
-            </span>
-          </div>
-          <div class="transaction-amount" style="color: ${amount > 0 ? "#10B981" : "#EF4444"}">
-            ${formatCurrency(amount)}
-          </div>
-        </li>`;
-    });
   }
+
+  // Use .map().join('') for clean, high-performance rendering
+  listContainer.innerHTML = transactions
+    .map((transaction) => {
+      const { title, amount, category, date } = transaction;
+      const catInfo = CATEGORIES[category] || {
+        label: category,
+        color: "#9CA3AF",
+        icon: "💳",
+      };
+      const isIncome = amount > 0;
+
+      return `
+        <li class="transaction-item">
+          <div class="tx-details">
+            <div class="tx-icon" style="background-color: ${catInfo.color}20">
+              ${catInfo.icon}
+            </div>
+            <div>
+              <div class="tx-title">${title}</div>
+              <div class="tx-meta">${date} • ${catInfo.label}</div>
+            </div>
+          </div>
+          <div class="tx-amount ${isIncome ? "text-income" : "text-expense"}">
+            ${isIncome ? "+" : ""}${formatCurrency(amount)}
+          </div>
+        </li>
+      `;
+    })
+    .join("");
 }
 
 // 3. Render Metric Cards
 export function renderSummaryTotals(balance, income, expenses) {
-  // TODO: Update textContent for #net-balance, #total-income, and #total-expenses
+  document.getElementById("net-balance").textContent = formatCurrency(balance);
+  document.getElementById("total-income").textContent = formatCurrency(income);
+  document.getElementById("total-expenses").textContent =
+    formatCurrency(expenses);
 }
 
 // 4. Extract Form Data from Modal
 export function getFormData() {
-  // TODO: Return a new transaction object using input values from #transaction-form
-  // Hint: Convert income/expense type to positive or negative number!
+  const txTitle = document.getElementById("tx-title").value;
+  const txAmount = parseFloat(document.getElementById("tx-amount").value);
+  const txCategory = document.getElementById("tx-category").value;
+  const txDate = document.getElementById("tx-date").value;
+  const txType = document.getElementById("tx-type").value;
+
+  return {
+    id: Date.now().toString(),
+    type: txType,
+    title: txTitle,
+    amount: txType === "expense" ? -Math.abs(txAmount) : Math.abs(txAmount),
+    category: txCategory,
+    date: txDate,
+  };
 }
