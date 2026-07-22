@@ -10,7 +10,12 @@ import {
   getTotalIncome,
   getTotalExpenses,
 } from "./state.js";
-import { renderTransactions, renderSummaryTotals, getFormData } from "./ui.js";
+import {
+  renderTransactions,
+  renderSummaryTotals,
+  getFormData,
+  renderCategoryProgress,
+} from "./ui.js";
 import { saveTransactions, loadTransactions } from "./storage.js";
 import { initChart, updateChart } from "./chart.js";
 
@@ -22,6 +27,7 @@ function updateAppUI() {
   const filteredTransactions = getFilteredTransactions();
 
   renderTransactions(filteredTransactions);
+  renderCategoryProgress(filteredTransactions);
   renderSummaryTotals(getNetBalance(), getTotalIncome(), getTotalExpenses());
   updateChart(chartInstance, filteredTransactions);
 
@@ -33,6 +39,7 @@ function setupEventListeners() {
   const modal = document.querySelector("#transaction-modal");
   const openModalBtn = document.querySelector("#open-modal-btn");
   const closeModalBtn = document.querySelector("#close-modal-btn");
+  const cancelModalBtn = document.querySelector("#cancel-modal-btn");
   const form = document.querySelector("#transaction-form");
   const searchInput = document.querySelector("#search-input");
   const timeframeBtns = document.querySelectorAll(".filter-btn");
@@ -40,7 +47,7 @@ function setupEventListeners() {
   // Modal Open/Close
   openModalBtn.addEventListener("click", () => modal.showModal());
   closeModalBtn.addEventListener("click", () => modal.close());
-
+  cancelModalBtn.addEventListener("click", () => modal.close());
   // Form Submission
   form.addEventListener("submit", (e) => {
     e.preventDefault();

@@ -80,3 +80,52 @@ export function getFormData() {
     date: txDate,
   };
 }
+
+// 5. Render Category Spending Breakdown Progress Bars
+export function renderCategoryProgress(transactions) {
+  const container = document.querySelector("#category-progress-list");
+  if (!container) return;
+
+  // Filter for expenses only
+  const expenses = transactions.filter((tx) => tx.amount < 0);
+  const totalExpense = expenses.reduce(
+    (sum, tx) => sum + Math.abs(tx.amount),
+    0,
+  );
+
+  if (expenses.length === 0 || totalExpense === 0) {
+    container.innerHTML = `<p class="empty-state">No expense data available.</p>`;
+    return;
+  }
+
+  // Calculate totals per category
+  const categoryTotals = expenses.reduce((acc, tx) => {
+    const cat = tx.category;
+    acc[cat] = (acc[cat] || 0) + Math.abs(tx.amount);
+    return acc;
+  }, {});
+
+  // Generate progress bars HTML
+  container.innerHTML = Object.entries(categoryTotals)
+    .map(([category, amount]) => {
+      const catInfo = CATEGORIES[category] || {
+        label: category,
+        color: "#9CA3AF",
+        icon: "💳",
+      };
+      const percentage = ((amount / totalExpense) * 100).toFixed(0);
+
+      return `
+        <div class="category-item" style="margin-bottom: 12px;">
+          <div class="category-info" style="display: flex; justify-content: space-between; font-size: 0.9rem; margin-bottom: 4px;">
+            <span>${catInfo.icon} ${catInfo.label}</span>
+            <span style="font-weight: 600;">${formatCurrency(amount)} (${percentage}%)</span>
+          </div>
+          <div class="progress-bar-bg" style="background: rgba(255,255,255,0.08); height: 8px; border-radius: 4px; overflow: hidden;">
+            <div class="progress-bar-fill" style="width: ${percentage}%; background-color: ${catInfo.color}; height: 100%; border-radius: 4px; transition: width 0.3s ease;"></div>
+          </div>
+        </div>
+      `;
+    })
+    .join("");
+}
