@@ -1,0 +1,133 @@
+/* ==========================================================================
+   Main Styles, CSS Variables & Base Reset
+   ========================================================================== */
+
+:root {
+  /* Background Layers */
+  --bg-body: #090d16;
+  --bg-card: #111827;
+  --bg-card-hover: #1f2937;
+  --bg-input: #1f2937;
+  --bg-modal: #111827;
+  --bg-backdrop: rgba(0, 0, 0, 0.75);
+
+  /* Accent & Status Colors */
+  --accent-primary: #6366f1; /* Indigo */
+  --accent-primary-hover: #4f46e5;
+  --accent-glow: rgba(99, 102, 241, 0.15);
+
+  --color-income: #10b981; /* Emerald Green */
+  --color-income-bg: rgba(16, 185, 129, 0.1);
+
+  --color-expense: #f43f5e; /* Rose Red */
+  --color-expense-bg: rgba(244, 63, 94, 0.1);
+
+  /* Typography Colors */
+  --text-primary: #f9fafb; /* Almost Pure White */
+  --text-secondary: #9ca3af; /* Muted Gray */
+  --text-muted: #6b7280; /* Subtle Gray */
+
+  /* Borders & Dividers */
+  --border-color: #1f2937;
+  --border-focus: #6366f1;
+
+  /* Typography Settings */
+  --font-family:
+    "Inter", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+
+  /* Border Radii */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 18px;
+  --radius-pill: 9999px;
+
+  /* Transitions */
+  --transition-fast: 0.15s ease;
+  --transition-normal: 0.25s ease;
+}
+
+/* --------------------------------------------------------------------------
+   1. Universal Reset
+   -------------------------------------------------------------------------- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* --------------------------------------------------------------------------
+   2. Body & Typography Base Setup
+   -------------------------------------------------------------------------- */
+body {
+  font-family: var(--font-family);
+  background-color: var(--bg-body);
+  color: var(--text-primary);
+  min-height: 100vh;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  padding: 24px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+/* Headings */
+h1,
+h2,
+h3,
+h4 {
+  font-weight: 600;
+  color: var(--text-primary);
+  line-height: 1.2;
+}
+
+/* Inputs & Form Base */
+button {
+  font-family: inherit;
+  cursor: pointer;
+  border: none;
+  background: none;
+}
+
+input,
+select {
+  font-family: inherit;
+  outline: none;
+}
+
+ul {
+  list-style: none;
+}
+
+/* --------------------------------------------------------------------------
+   3. Custom Dark Scrollbars
+   -------------------------------------------------------------------------- */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-body);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border-color);
+  border-radius: var(--radius-pill);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--text-muted);
+}
+
+/* --------------------------------------------------------------------------
+   4. Global Helper Classes
+   -------------------------------------------------------------------------- */
+.text-income {
+  color: var(--color-income);
+}
+
+.text-expense {
+  color: var(--color-expense);
+}
