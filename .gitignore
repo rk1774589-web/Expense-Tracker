@@ -1,0 +1,17 @@
+# Dependencies (never push these; others install them via package.json)
+node_modules/
+
+# Secret credentials & API keys
+.env
+.env.local
+
+# Build output directories
+dist/
+build/
+
+# Operating system clutter
+.DS_Store
+Thumbs.db
+
+# Log files
+*.log
