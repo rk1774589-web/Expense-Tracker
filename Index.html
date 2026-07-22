@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pulse | Modern Expense Tracker</title>
+
+    <!-- Inter Font from Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- CSS Stylesheets -->
+    <link rel="stylesheet" href="styles/main.css" />
+    <link rel="stylesheet" href="styles/components.css" />
+
+    <!-- Chart.js CDN for Analytics -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js" defer></script>
+  </head>
+  <body>
+    <!-- Top Navigation Bar -->
+    <header class="app-header">
+      <div class="logo">
+        <span class="logo-icon">⚡</span>
+        <h1>Pulse</h1>
+      </div>
+
+      <!-- Timeframe Filter Pills -->
+      <div class="timeframe-filters">
+        <button class="filter-btn" data-timeframe="1W">1W</button>
+        <button class="filter-btn active" data-timeframe="1M">1M</button>
+        <button class="filter-btn" data-timeframe="3M">3M</button>
+        <button class="filter-btn" data-timeframe="YTD">YTD</button>
+      </div>
+
+      <button id="open-modal-btn" class="btn btn-primary">
+        + Add Transaction
+      </button>
+    </header>
+
+    <!-- Main Bento Grid Layout -->
+    <main class="bento-grid">
+      <!-- Bento Card 1: Summary Balance & Metrics -->
+      <section class="card card-summary">
+        <div class="metric-block">
+          <span class="metric-label">Net Balance</span>
+          <h2 id="net-balance" class="metric-value">$0.00</h2>
+        </div>
+        <div class="metrics-row">
+          <div class="sub-metric">
+            <span class="dot income-dot"></span>
+            <span>Income:</span>
+            <strong id="total-income" class="text-income">$0.00</strong>
+          </div>
+          <div class="sub-metric">
+            <span class="dot expense-dot"></span>
+            <span>Expenses:</span>
+            <strong id="total-expenses" class="text-expense">$0.00</strong>
+          </div>
+        </div>
+      </section>
+
+      <!-- Bento Card 2: Spending Chart -->
+      <section class="card card-chart">
+        <div class="card-header">
+          <h3>Spending Trends</h3>
+          <span class="card-subtitle">Overview for active timeframe</span>
+        </div>
+        <div class="chart-container">
+          <canvas id="spending-chart"></canvas>
+        </div>
+      </section>
+
+      <!-- Bento Card 3: Category Breakdown -->
+      <section class="card card-categories">
+        <div class="card-header">
+          <h3>Categories</h3>
+        </div>
+        <div id="category-progress-list" class="category-list">
+          <!-- JS will dynamically inject category progress bars here -->
+        </div>
+      </section>
+
+      <!-- Bento Card 4: Recent Transactions Table -->
+      <section class="card card-transactions">
+        <div class="card-header space-between">
+          <h3>Recent Transactions</h3>
+          <input
+            type="text"
+            id="search-input"
+            class="search-input"
+            placeholder="Search transactions..."
+          />
+        </div>
+
+        <div class="table-wrapper">
+          <ul id="transaction-list" class="transaction-list">
+            <!-- JS will dynamically inject transaction list items here -->
+          </ul>
+        </div>
+      </section>
+    </main>
+
+    <!-- Add / Edit Transaction Modal Dialog -->
+    <dialog id="transaction-modal" class="modal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3>New Transaction</h3>
+          <button id="close-modal-btn" class="close-btn">&times;</button>
+        </div>
+
+        <form id="transaction-form">
+          <div class="form-group">
+            <label for="tx-title">Description</label>
+            <input
+              type="text"
+              id="tx-title"
+              placeholder="e.g., Apple Store, Grocery Run"
+              required
+            />
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="tx-amount">Amount ($)</label>
+              <input
+                type="number"
+                id="tx-amount"
+                step="0.01"
+                placeholder="0.00"
+                required
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="tx-type">Type</label>
+              <select id="tx-type">
+                <option value="expense">Expense (-)</option>
+                <option value="income">Income (+)</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="tx-category">Category</label>
+              <select id="tx-category" required>
+                <option value="groceries">Groceries</option>
+                <option value="entertainment">Entertainment</option>
+                <option value="tech">Tech & Electronics</option>
+                <option value="dining">Dining Out</option>
+                <option value="bills">Bills & Utilities</option>
+                <option value="salary">Salary & Income</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="tx-date">Date</label>
+              <input type="date" id="tx-date" required />
+            </div>
+          </div>
+
+          <div class="modal-actions">
+            <button
+              type="button"
+              id="cancel-modal-btn"
+              class="btn btn-secondary"
+            >
+              Cancel
+            </button>
+            <button type="submit" class="btn btn-primary">
+              Save Transaction
+            </button>
+          </div>
+        </form>
+      </div>
+    </dialog>
+
+    <!-- Entry Point JavaScript Module -->
+    <script type="module" src="js/app.js"></script>
+  </body>
+</html>
