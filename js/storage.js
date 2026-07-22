@@ -17,3 +17,13 @@ export function loadTransactions() {
     return [];
   }
 }
+
+export function deleteTransactionFromStorage(id) {
+  try {
+    const transactions = loadTransactions();
+    const updatedTransactions = transactions.filter((tx) => tx.id !== id);
+    saveTransactions(updatedTransactions);
+  } catch (error) {
+    console.error("Error deleting transaction from localStorage:", error);
+  }
+}

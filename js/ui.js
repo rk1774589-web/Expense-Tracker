@@ -36,21 +36,26 @@ export function renderTransactions(transactions) {
       const isIncome = amount > 0;
 
       return `
-        <li class="transaction-item">
-          <div class="tx-details">
-            <div class="tx-icon" style="background-color: ${catInfo.color}20">
-              ${catInfo.icon}
-            </div>
-            <div>
-              <div class="tx-title">${title}</div>
-              <div class="tx-meta">${date} • ${catInfo.label}</div>
-            </div>
-          </div>
-          <div class="tx-amount ${isIncome ? "text-income" : "text-expense"}">
-            ${isIncome ? "+" : ""}${formatCurrency(amount)}
-          </div>
-        </li>
-      `;
+      <li class="transaction-item" data-id="${id}">
+      <div class="tx-details">
+      <div class="tx-icon" style="background-color: ${catInfo.color}20">
+        ${catInfo.icon}
+      </div>
+      <div>
+        <div class="tx-title">${title}</div>
+        <div class="tx-meta">${date} • ${catInfo.label}</div>
+      </div>
+    </div>
+    <div style="display: flex; align-items: center; gap: 12px;">
+      <div class="tx-amount ${isIncome ? "text-income" : "text-expense"}">
+        ${isIncome ? "+" : ""}${formatCurrency(amount)}
+      </div>
+      <button class="delete-btn" data-id="${id}" style="background: none; border: none; cursor: pointer; font-size: 1rem; opacity: 0.6;" title="Delete">
+        🗑️
+      </button>
+    </div>
+  </li>
+`;
     })
     .join("");
 }
