@@ -46,13 +46,11 @@ export function renderTransactions(transactions) {
               <div class="tx-meta">${date} • ${catInfo.label}</div>
             </div>
           </div>
-          <div class="transaction-amount" style="color: ${amount > 0 ? "#10B981" : "#EF4444"}">
-            ${formatCurrency(amount)}
           <div class="tx-amount ${isIncome ? "text-income" : "text-expense"}">
             ${isIncome ? "+" : ""}${formatCurrency(amount)}
             <button class="delete-btn" data-id="${id}" style="background: none; border: none; cursor: pointer; font-size: 1rem; opacity: 0.6;" title="Delete">
-        🗑️
-      </button>
+            🗑️
+            </button>
           </div>
         </li>`;
     })
