@@ -1,4 +1,4 @@
-# ⚡ Pulse — Modern Expense Tracker
+#  Pulse — Modern Expense Tracker
 
 > A lightweight, modular financial dashboard built with **Pure Vanilla JavaScript (ES6+ Modules)**, **Chart.js**, and custom **Bento Grid CSS**.
 
@@ -6,7 +6,7 @@
 
 ---
 
-## 🚀 Overview
+##  Overview
 
 **Pulse** is a clean, responsive financial tracking application designed to provide instant visibility into spending trends, income, and category breakdowns. 
 
@@ -14,18 +14,18 @@ Instead of relying on heavy frontend frameworks, this project was engineered usi
 
 ---
 
-## ✨ Key Features
+##  Key Features
 
-* **📊 Interactive Visual Analytics:** Dynamic spending trend area chart built with Chart.js, featuring smooth curves, dynamic canvas gradients, and custom tooltips.
-* **🏷️ Category Breakdown Progress Bars:** Automatic expenditure grouping by category with percentage calculations and color-coded progress bars.
-* **🔍 Search & Date Filtering:** Real-time filtering by keyword and timeframe (`1W`, `1M`, `3M`, `YTD`).
-* **💾 Data Persistence:** Seamless sync with browser `localStorage`, featuring safe fallbacks and `try...catch` error handling.
-* **⚡ Event Delegation:** High-performance DOM interaction using single event listener delegation for dynamic elements (e.g., transaction deletion).
-* **🎨 Modern Bento Grid UI:** Fully responsive dark-mode UI designed with CSS grid and custom glassmorphism styling.
+* ** Interactive Visual Analytics:** Dynamic spending trend area chart built with Chart.js, featuring smooth curves, dynamic canvas gradients, and custom tooltips.
+* ** Category Breakdown Progress Bars:** Automatic expenditure grouping by category with percentage calculations and color-coded progress bars.
+* ** Search & Date Filtering:** Real-time filtering by keyword and timeframe (`1W`, `1M`, `3M`, `YTD`).
+* ** Data Persistence:** Seamless sync with browser `localStorage`, featuring safe fallbacks and `try...catch` error handling.
+* ** Event Delegation:** High-performance DOM interaction using single event listener delegation for dynamic elements (e.g., transaction deletion).
+* ** Modern Bento Grid UI:** Fully responsive dark-mode UI designed with CSS grid and custom glassmorphism styling.
 
 ---
 
-## 🛠️ Tech Stack
+##  Tech Stack
 
 * **Language:** JavaScript (ES6+ Modules)
 * **Styling:** CSS3 (Variables, Flexbox, Grid, Bento-card layout)
@@ -35,7 +35,7 @@ Instead of relying on heavy frontend frameworks, this project was engineered usi
 
 ---
 
-## 🏗️ Architecture & Module Structure
+##  Architecture & Module Structure
 
 The application follows a clean **Single Responsibility Principle (SRP)** across five distinct JavaScript modules:
 
